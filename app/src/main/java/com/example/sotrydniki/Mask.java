@@ -18,7 +18,7 @@ public class Mask implements Parcelable {
         Img = in.readString();
         Job_title = in.readString();
     }
-
+//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
     public static final Creator<Mask> CREATOR = new Creator<Mask>() {
         @Override
         public Mask createFromParcel(Parcel in) {
