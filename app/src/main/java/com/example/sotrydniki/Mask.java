@@ -2,8 +2,16 @@ package com.example.sotrydniki;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Mask implements Parcelable {
+
 
     private int ID;
     private String Name;
@@ -18,7 +26,7 @@ public class Mask implements Parcelable {
         Img = in.readString();
         Job_title = in.readString();
     }
-//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
+
     public static final Creator<Mask> CREATOR = new Creator<Mask>() {
         @Override
         public Mask createFromParcel(Parcel in) {
@@ -30,6 +38,10 @@ public class Mask implements Parcelable {
             return new Mask[size];
         }
     };
+
+    public int getID() {
+        return ID;
+    }
 
     public void setID(int ID) {
         this.ID = ID;
@@ -51,9 +63,7 @@ public class Mask implements Parcelable {
         Job_title = job_title;
     }
 
-    public int getID() {
-        return ID;
-    }
+
 
     public String getName() {
         return Name;
@@ -92,4 +102,8 @@ public class Mask implements Parcelable {
         dest.writeString(Img);
         dest.writeString(Job_title);
     }
+
+
+
+
 }

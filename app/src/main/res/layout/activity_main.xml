@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/Vverh"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/purple_200">
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/Niz"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple_200"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/Btadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="135dp"
+            android:backgroundTint="@color/zadni"
+            android:text="Добавить"
+            android:textColor="@color/white"
+            app:cornerRadius="25dp"
+            app:strokeColor="#7D8BE4"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+
     <ListView
-        
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/btAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/BD"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/Niz"
+        android:layout_below="@+id/Vverh">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#3F51B5"
+    </ListView>
 
-        android:text="Добавление"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
