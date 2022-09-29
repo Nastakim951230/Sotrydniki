@@ -1,9 +1,6 @@
 package com.example.sotrydniki;
 
-import static com.example.sotrydniki.R.drawable.avator;
-
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -17,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class Adapter extends BaseAdapter {
+
 
     private Context nContext;
 
@@ -48,7 +46,8 @@ public class Adapter extends BaseAdapter {
         }
         else
         {
-            return  BitmapFactory.decodeResource(nContext.getResources(), avator);
+
+            return  BitmapFactory.decodeResource(nContext.getResources(), R.drawable.avator);
         }
     }
 
@@ -62,6 +61,7 @@ public class Adapter extends BaseAdapter {
         ImageView Image= v.findViewById(R.id.photoImageView);
 
         Mask mask=maskList.get(position);
+
         Name.setText(mask.getName());
         Surname.setText(mask.getSurname());
         Job_title.setText(mask.getJob_title());

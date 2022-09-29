@@ -1,15 +1,21 @@
 package com.example.sotrydniki;
 
-import static com.example.sotrydniki.R.drawable.*;
+import static com.example.sotrydniki.R.drawable.avator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,15 +43,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         v = findViewById(com.google.android.material.R.id.ghost_view);
-        ImageView image =(ImageView)findViewById(R.id.photoImageView);
 
         GetTextFromSQL(v);
-
     }
 
     public void enterMobile() {
         pAdapter.notifyDataSetInvalidated();
         listView.setAdapter(pAdapter);
+    }
+
+    public void SetLister()
+    {
+
     }
 
     public void GetTextFromSQL(View v) {
@@ -81,11 +90,13 @@ public class MainActivity extends AppCompatActivity {
         enterMobile();
 
     }
-
-    public void Delet (View v)
-    {
-
+    public void onClickADD(View v) {
+        switch (v.getId()) {
+            case R.id.btadd:
+                Intent intent = new Intent(this, Add.class);
+                startActivity(intent);
+                break;
+        }
     }
-
 
 }
