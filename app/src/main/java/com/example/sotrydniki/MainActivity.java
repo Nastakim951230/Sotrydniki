@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -31,16 +32,19 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     View v;
     Connection connection;
-    List<Mask> data;
+    ArrayList<Mask> data;
     ListView listView;
     Adapter pAdapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         v = findViewById(com.google.android.material.R.id.ghost_view);
 
@@ -52,10 +56,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(pAdapter);
     }
 
-    public void SetLister()
-    {
 
-    }
 
     public void GetTextFromSQL(View v) {
         data = new ArrayList<Mask>();

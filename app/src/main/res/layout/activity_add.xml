@@ -4,74 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:circularflow_radiusInDP="25"
     tools:context=".Add">
 
     <RelativeLayout
         android:id="@+id/Vverh"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/purple_200">
+        android:background="@color/purple_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/Niz"
+        android:layout_below="@+id/Vverh"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+
+            android:hint="Name"
+            android:minHeight="48dp"
+            android:textColor="#000000"></EditText>
+
+        <EditText
+            android:id="@+id/etSurname"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+
+            android:hint="Surname"
+            android:minHeight="48dp"
+            android:textColor="#000000"></EditText>
+
+        <EditText
+            android:id="@+id/etJobTitle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+
+
+            android:hint="Job title"
+            android:minHeight="48dp"
+            android:textColor="#000000"></EditText>
+
+        <ImageButton
+            android:id="@+id/ImgBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_marginHorizontal="75dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="#AFBFEA"
+            android:maxWidth="250dp"
+            android:maxHeight="250dp"
+            android:onClick="onClickChooseImage"
+            app:layout_constraintBottom_toTopOf="@+id/Niz"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_avatoradd"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/Niz"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="-2dp"
         android:background="@color/purple_200"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/NazadDATA"
-            android:layout_width="wrap_content"
+            android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginBottom="5dp"
             android:backgroundTint="@color/zadni"
             android:onClick="onClickNAZAD"
             android:text="Назад"
+            android:layout_centerInParent="true"
             android:textColor="@color/white"
             app:cornerRadius="25dp"
             app:strokeColor="#7D8BE4"
             app:strokeWidth="1dp" />
+
         <Button
             android:id="@+id/btaddDATA"
-            android:layout_width="wrap_content"
+            android:layout_width="145dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/zadni"
-            android:text="Добавить"
+            android:layout_centerInParent="true"
             android:layout_marginHorizontal="45dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/zadni"
+            android:minHeight="48dp"
+            android:onClick="onClickADD"
+            android:text="Добавить"
             android:textColor="@color/white"
             app:cornerRadius="25dp"
             app:strokeColor="#7D8BE4"
             app:strokeWidth="1dp" />
-
-
-
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/Text"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_above="@+id/Niz"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/purple_200"
-        android:orientation="horizontal">
 
-
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/BD"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/Text"
-        android:layout_below="@+id/Vverh">
-
-    </ListView>
 </RelativeLayout>

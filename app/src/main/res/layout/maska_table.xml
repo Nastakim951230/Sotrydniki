@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:circularflow_defaultRadius="25dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/photoImageView"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -14,7 +14,7 @@
         android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/avator" />
+        android:src="@drawable/avator" />
 
     <TextView
         android:id="@+id/userNameTextView"
