@@ -1,6 +1,6 @@
 package com.example.sotrydniki;
 
-import static com.example.sotrydniki.R.drawable.avator;
+
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
         v = findViewById(com.google.android.material.R.id.ghost_view);
 
 
+
         GetTextFromSQL(v);
 
 
@@ -62,26 +63,6 @@ public class MainActivity extends AppCompatActivity{
         pAdapter.notifyDataSetInvalidated();
         listView.setAdapter(pAdapter);
     }
-
-/*public void Delet(View v)
-{
-
-    try {
-        ConnectionHelper connectionHelper = new ConnectionHelper();
-        connection = connectionHelper.connectionClass();
-        if (connection != null) {
-            String query = "DELETE FROM  Sotrudnic  WHERE ID= "+i+"";
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(query);
-        }
-    }
-
-    catch (Exception ex)
-    {
-
-    }
-    GetTextFromSQL(v);
-}*/
 
     public void GetTextFromSQL(View v) {
         data = new ArrayList<Mask>();

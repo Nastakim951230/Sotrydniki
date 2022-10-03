@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Base64;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class Adapter extends BaseAdapter {
     private Context nContext;
     private ArrayList<Mask> mMask;
     private OnItemClickListener mListener;
+    String img="";
 
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -64,7 +67,7 @@ public class Adapter extends BaseAdapter {
         InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(cr, uri);
         if (input == null) {
             Resources res = context.getResources();
-            return BitmapFactory.decodeResource(res, R.drawable.avator);
+            return BitmapFactory.decodeResource(res, R.drawable.avatar);
         }
         return BitmapFactory.decodeStream(input);
     }
@@ -73,16 +76,17 @@ public class Adapter extends BaseAdapter {
     private Bitmap getUserImage(String encodedImg)
     {
         byte[] bytes;
-        if(encodedImg!=null&& !encodedImg.equals("NULL")) {
+        if(encodedImg!=null&& !encodedImg.equals("null")) {
             bytes = Base64.decode(encodedImg, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
         else
         {
-            return BitmapFactory.decodeResource(nContext.getResources(),
-                    R.drawable.avator);
+
+            return BitmapFactory.decodeResource(nContext.getResources(), R.drawable.avatar);
         }
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

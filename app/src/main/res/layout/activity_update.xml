@@ -7,14 +7,19 @@
     android:onClick="onClickChooseImage"
     tools:context=".Update">
 
-    <ImageButton
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ImagBD"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:src="@drawable/ic_baseline_account_circle_24" />
+        android:minWidth="250dp"
+        android:minHeight="250dp"
+        android:onClick="onClickChooseImage"
+        app:shapeAppearanceOverlay="@style/Sircular"
+        android:scaleType="fitXY"
+        android:src="@drawable/avatar" />
 
     <EditText
         android:id="@+id/UpdataName"

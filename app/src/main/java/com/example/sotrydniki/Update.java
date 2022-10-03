@@ -22,7 +22,7 @@ import java.sql.Statement;
 import java.util.Base64;
 
 public class Update extends AppCompatActivity {
- ImageButton imageButton;
+ ImageView imageView;
  EditText Name, Surname, Dolgnost;
  Button Update,Nazad,Delet;
  Mask mask;
@@ -38,7 +38,7 @@ String img="";
         setContentView(R.layout.activity_update);
         mask=getIntent().getParcelableExtra("Sotrudnic");
 
-        imageButton=findViewById(R.id.ImagBD);
+        imageView=findViewById(R.id.ImagBD);
 
         Name= findViewById(R.id.UpdataName);
         Name.setText(mask.getName());
@@ -49,8 +49,10 @@ String img="";
         Dolgnost=findViewById(R.id.UpdataDolgnost);
         Dolgnost.setText(mask.getJob_title());
 
-        imageButton.setImageBitmap(getImgBitmap(mask.getImg()));
+        imageView.setImageBitmap(getImgBitmap(mask.getImg()));
         v =findViewById(com.google.android.material.R.id.ghost_view);
+
+
 
 
     }
@@ -65,7 +67,7 @@ String img="";
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
         return BitmapFactory.decodeResource(Update.this.getResources(),
-                R.drawable.avator);
+                R.drawable.avatar);
     }
 
 
@@ -83,8 +85,8 @@ String img="";
             if(resultCode==RESULT_OK)
             {
                 Log.d("MyLog","Image URI : "+data.getData());
-                imageButton.setImageURI(data.getData());
-                Bitmap bitmap = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
+                imageView.setImageURI(data.getData());
+                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                 encodeImage(bitmap);
 
             }

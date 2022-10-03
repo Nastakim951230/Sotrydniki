@@ -13,7 +13,7 @@
         android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:src="@drawable/avator"
+        android:src="@drawable/avatarmask"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
