@@ -109,10 +109,18 @@ String img;
             return;
         }
         try {
+            String query="";
             ConnectionHelper connectionHelper = new ConnectionHelper();
             connection = connectionHelper.connectionClass();
             if (connection != null) {
-                String query = "INSERT INTO Sotrudnic (Name, Surname, Img, Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '"+img+"', '" + JobTitle.getText() + "')";
+                if(img==null)
+                {
+                    query = "INSERT INTO Sotrudnic (Name, Surname,  Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '" + JobTitle.getText() + "')";
+                }
+                else
+                {
+                    query = "INSERT INTO Sotrudnic (Name, Surname, Img, Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '"+img+"', '" + JobTitle.getText() + "')";
+                }
                 Statement statement = connection.createStatement();
                 ResultSet result = statement.executeQuery(query);
                 Toast.makeText(this,"Успешно добавлено", Toast.LENGTH_LONG).show();
@@ -126,10 +134,12 @@ String img;
         }
         Name.setText("");
         Surname.setText("");
-
         JobTitle.setText("");
-
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
+
+
 
 
 
