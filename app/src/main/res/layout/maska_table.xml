@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="Delet"
     app:circularflow_defaultRadius="25dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -12,17 +13,19 @@
         android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
+        android:src="@drawable/avator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/avator" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/userNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:background="#C7DBF4"
         android:ellipsize="end"
         android:lines="1"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/userSurnameTextView"
@@ -35,11 +38,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:background="#C7DBF4"
         android:ellipsize="end"
         android:lines="1"
+        android:textAlignment="center"
+
         android:textColor="@color/black"
         android:textSize="16sp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/userNameTextView"
         app:layout_constraintTop_toTopOf="@id/photoImageView"
@@ -51,11 +56,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:background="#C7DBF4"
         android:ellipsize="end"
         android:lines="1"
+        android:text="Dolgnost"
+
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/photoImageView"
         app:layout_constraintTop_toTopOf="@id/userNameTextView" />

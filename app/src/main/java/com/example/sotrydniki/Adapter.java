@@ -3,6 +3,7 @@ package com.example.sotrydniki;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,13 +18,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends BaseAdapter {
 
 
     private Context nContext;
+    private ArrayList<Mask> mMask;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener=listener;
+    }
 
 
     public Adapter(Context nContext, List<Mask> maskList) {
@@ -55,17 +69,18 @@ public class Adapter extends BaseAdapter {
         return BitmapFactory.decodeStream(input);
     }
 
+
     private Bitmap getUserImage(String encodedImg)
     {
         byte[] bytes;
-        if(encodedImg!=null&& !encodedImg.equals("null")) {
+        if(encodedImg!=null&& !encodedImg.equals("NULL")) {
             bytes = Base64.decode(encodedImg, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
         else
         {
-
-            return BitmapFactory.decodeResource(nContext.getResources(),R.drawable.avator);
+            return BitmapFactory.decodeResource(nContext.getResources(),
+                    R.drawable.avator);
         }
     }
 
@@ -88,6 +103,15 @@ public class Adapter extends BaseAdapter {
 
         Image.setImageBitmap(getUserImage(mask.getImg()));
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intenDetalis=new Intent(nContext,Update.class);
+                intenDetalis.putExtra("Sotrudnic",mask);
+                nContext.startActivity(intenDetalis);
+
+            }
+        });
         return v;
     }
 }

@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -30,14 +33,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
     View v;
     Connection connection;
-    ArrayList<Mask> data;
+    List<Mask> data;
     ListView listView;
     Adapter pAdapter;
+
 
 
 
@@ -48,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         v = findViewById(com.google.android.material.R.id.ghost_view);
 
+
         GetTextFromSQL(v);
+
+
     }
 
     public void enterMobile() {
@@ -56,7 +63,25 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(pAdapter);
     }
 
+/*public void Delet(View v)
+{
 
+    try {
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        if (connection != null) {
+            String query = "DELETE FROM  Sotrudnic  WHERE ID= "+i+"";
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(query);
+        }
+    }
+
+    catch (Exception ex)
+    {
+
+    }
+    GetTextFromSQL(v);
+}*/
 
     public void GetTextFromSQL(View v) {
         data = new ArrayList<Mask>();
@@ -66,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             ConnectionHelper connectionHelper = new ConnectionHelper();
             connection = connectionHelper.connectionClass();
             if (connection != null) {
+
                 String query = "Select * From Sotrudnic";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
@@ -91,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
         enterMobile();
 
     }
+
+
+
     public void onClickADD(View v) {
         switch (v.getId()) {
             case R.id.btadd:
@@ -99,5 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
 }

@@ -7,31 +7,37 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class Add extends AppCompatActivity {
 
+String img;
     Connection connection;
-    private ImageButton imageButton;
+    private ImageView imageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
+        String img="";
         imageButton=findViewById(R.id.ImgBut);
 
 
@@ -42,6 +48,7 @@ public class Add extends AppCompatActivity {
     public void onClickChooseImage(View view)
     {
        getImage();
+
     }
 
     @Override
@@ -53,7 +60,8 @@ public class Add extends AppCompatActivity {
             {
                 Log.d("MyLog","Image URI : "+data.getData());
                 imageButton.setImageURI(data.getData());
-
+                Bitmap bitmap = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
+                encodeImage(bitmap);
 
             }
         }
@@ -67,16 +75,32 @@ public class Add extends AppCompatActivity {
         startActivityForResult(intentChooser,1);
     }
 
+    private String encodeImage(Bitmap bitmap) {
+        int prevW = 150;
+        int prevH = bitmap.getHeight() * prevW / bitmap.getWidth();
+        Bitmap b = Bitmap.createScaledBitmap(bitmap, prevW, prevH, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            img=Base64.getEncoder().encodeToString(bytes);
+            return img;
+        }
+        return "";
+    }
 
 
 
     public void onClickADD(View v)
     {
-        getImage();
+
+
         EditText Name = findViewById(R.id.etName);
         EditText Surname = findViewById(R.id.etSurname);
-        ImageButton Img = findViewById(R.id.ImgBut);
+        ImageView Img = findViewById(R.id.ImgBut);
         EditText JobTitle = findViewById(R.id.etJobTitle);
+
+
 
 
         if (Name.getText().length()==0|| Surname.getText().length()==0 ||  JobTitle.getText().length()==0 )
@@ -88,7 +112,7 @@ public class Add extends AppCompatActivity {
             ConnectionHelper connectionHelper = new ConnectionHelper();
             connection = connectionHelper.connectionClass();
             if (connection != null) {
-                String query = "INSERT INTO Sotrudnic (Name, Surname, Img, Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', 'null', '" + JobTitle.getText() + "')";
+                String query = "INSERT INTO Sotrudnic (Name, Surname, Img, Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '"+img+"', '" + JobTitle.getText() + "')";
                 Statement statement = connection.createStatement();
                 ResultSet result = statement.executeQuery(query);
                 Toast.makeText(this,"Успешно добавлено", Toast.LENGTH_LONG).show();
