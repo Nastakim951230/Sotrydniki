@@ -1,8 +1,10 @@
 package com.example.sotrydniki;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -89,6 +91,11 @@ String img;
         return "";
     }
 
+    public void Perehod()
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
     public void onClickADD(View v)
@@ -100,43 +107,58 @@ String img;
         ImageView Img = findViewById(R.id.ImgBut);
         EditText JobTitle = findViewById(R.id.etJobTitle);
 
+        AlertDialog.Builder builder=new AlertDialog.Builder(Add.this);
+        builder.setTitle("Добавление")
+                .setMessage("Вы уверены что хотите добавить данные")
+                .setCancelable(false)
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (Name.getText().length()==0|| Surname.getText().length()==0 ||  JobTitle.getText().length()==0 )
+                        {
+                            Toast.makeText(Add.this, "Не заполнены обязательные поля", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        try {
+                            String query="";
+                            ConnectionHelper connectionHelper = new ConnectionHelper();
+                            connection = connectionHelper.connectionClass();
+                            if (connection != null) {
+                                if(img==null)
+                                {
+                                    query = "INSERT INTO Sotrudnic (Name, Surname,  Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '" + JobTitle.getText() + "')";
+                                }
+                                else
+                                {
+                                    query = "INSERT INTO Sotrudnic (Name, Surname, Img, Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '"+img+"', '" + JobTitle.getText() + "')";
+                                }
+                                Statement statement = connection.createStatement();
+                                Toast.makeText(Add.this,"Успешно добавлено", Toast.LENGTH_LONG).show();
+                                ResultSet result = statement.executeQuery(query);
 
 
+                            }
+                        }
 
-        if (Name.getText().length()==0|| Surname.getText().length()==0 ||  JobTitle.getText().length()==0 )
-        {
-            Toast.makeText(this, "Не заполнены обязательные поля", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try {
-            String query="";
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connection = connectionHelper.connectionClass();
-            if (connection != null) {
-                if(img==null)
-                {
-                    query = "INSERT INTO Sotrudnic (Name, Surname,  Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '" + JobTitle.getText() + "')";
-                }
-                else
-                {
-                    query = "INSERT INTO Sotrudnic (Name, Surname, Img, Job_title) VALUES ('" + Name.getText() + "', '" + Surname.getText() + "', '"+img+"', '" + JobTitle.getText() + "')";
-                }
-                Statement statement = connection.createStatement();
-                ResultSet result = statement.executeQuery(query);
-                Toast.makeText(this,"Успешно добавлено", Toast.LENGTH_LONG).show();
+                        catch (Exception ex)
+                        {
+                            Toast.makeText(Add.this,"Произошла ошибка", Toast.LENGTH_LONG).show();
+                        }
+                        Name.setText("");
+                        Surname.setText("");
+                        JobTitle.setText("");
+                        Perehod();
+                    }
+                })
+                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog dialog=builder.create();
+        dialog.show();
 
-            }
-        }
-
-        catch (Exception ex)
-        {
-            Toast.makeText(this,"Произошла ошибка", Toast.LENGTH_LONG).show();
-        }
-        Name.setText("");
-        Surname.setText("");
-        JobTitle.setText("");
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
 
@@ -146,8 +168,7 @@ String img;
     public void onClickNAZAD(View v) {
         switch (v.getId()) {
             case R.id.NazadDATA:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                Perehod();
                 break;
         }
     }

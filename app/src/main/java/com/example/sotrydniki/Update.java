@@ -1,8 +1,10 @@
 package com.example.sotrydniki;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
@@ -24,7 +27,6 @@ import java.util.Base64;
 public class Update extends AppCompatActivity {
  ImageView imageView;
  EditText Name, Surname, Dolgnost;
- Button Update,Nazad,Delet;
  Mask mask;
  Connection connection;
     View v;
@@ -114,49 +116,103 @@ String img="";
         }
         return "";
     }
-    public void onClickUpdate(View v){
-        try {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connection = connectionHelper.connectionClass();
-            if (connection != null) {
-                String query = "UPDATE Sotrudnic Set Name = '" + Name.getText() + "', Surname = '" + Surname.getText() + "', Img ='" + img + "', Job_title ='" + Dolgnost.getText() + "' WHERE ID= "+mask.getID()+"";
-                Statement statement = connection.createStatement();
-                statement.executeQuery(query);
-            }
-        }
-
-        catch (Exception ex)
-        {
-
-        }
+    public void Perehod()
+    {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    public void onClickUpdate(View v){
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(Update.this);
+        builder.setTitle("Изменение")
+                .setMessage("Вы уверены что хотите изменить данные")
+                .setCancelable(false)
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (Name.getText().length()==0|| Surname.getText().length()==0 ||  Dolgnost.getText().length()==0 )
+                        {
+                            Toast.makeText(Update.this, "Есть не заполненые обязательные поля", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        try {
+                            String query="";
+                            ConnectionHelper connectionHelper = new ConnectionHelper();
+                            connection = connectionHelper.connectionClass();
+                            if (connection != null) {
+                                if(img=="")
+                                {
+                                     query = "UPDATE Sotrudnic Set Name = '" + Name.getText() + "', Surname = '" + Surname.getText() + "', Job_title ='" + Dolgnost.getText() + "' WHERE ID= "+mask.getID()+"";
+
+                                }
+                                else
+                                {
+                                     query = "UPDATE Sotrudnic Set Name = '" + Name.getText() + "', Surname = '" + Surname.getText() + "', Img ='" + img + "', Job_title ='" + Dolgnost.getText() + "' WHERE ID= "+mask.getID()+"";
+                                }
+                                  Statement statement = connection.createStatement();
+                                Toast.makeText(Update.this, "Данные изменены", Toast.LENGTH_SHORT).show();
+                                statement.executeQuery(query);
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        Perehod();
+                    }
+                })
+                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog dialog=builder.create();
+        dialog.show();
+
+    }
 
     public void onClickDelet(View v){
-        try {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connection = connectionHelper.connectionClass();
-            if (connection != null) {
-                String query = "DELETE FROM  Sotrudnic  WHERE ID= "+mask.getID()+"";
-                Statement statement = connection.createStatement();
-                statement.executeQuery(query);
-            }
-        }
 
-        catch (Exception ex)
-        {
+        AlertDialog.Builder builder=new AlertDialog.Builder(Update.this);
+        builder.setTitle("Удалить")
+                .setMessage("Вы уверены что хотите удалить данные")
+                .setCancelable(false)
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            ConnectionHelper connectionHelper = new ConnectionHelper();
+                            connection = connectionHelper.connectionClass();
+                            if (connection != null) {
+                                String query = "DELETE FROM  Sotrudnic  WHERE ID= "+mask.getID()+"";
+                                Statement statement = connection.createStatement();
+                                statement.executeQuery(query);
+                            }
+                        }
 
-        }
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+                        catch (Exception ex)
+                        {
+
+                        }
+                        Perehod();
+                    }
+                })
+                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
     public void onClickNAZAD(View v) {
         switch (v.getId()) {
             case R.id.Nazad:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                Perehod();
                 break;
         }
     }
