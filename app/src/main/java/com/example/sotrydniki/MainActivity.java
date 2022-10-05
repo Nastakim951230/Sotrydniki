@@ -17,11 +17,14 @@ import android.os.Bundle;
 import android.os.Messenger;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,5 +113,64 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.search,menu);
+        MenuItem item=menu.findItem(R.id.search);
+        SearchView searchView=(SearchView)item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                txtSearch(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                txtSearch(newText);
+
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private  void txtSearch(String str)
+    {
+        data = new ArrayList<Mask>();
+        listView = findViewById(R.id.BD);
+        pAdapter = new Adapter(MainActivity.this, data);
+        try {
+            ConnectionHelper connectionHelper = new ConnectionHelper();
+            connection = connectionHelper.connectionClass();
+            if (connection != null) {
+
+                String query = "Select * From Sotrudnic WHERE Name like'%"+str+"%'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    Mask tempMask = new Mask
+                            (resultSet.getInt("ID"),
+                                    resultSet.getString("Name"),
+                                    resultSet.getString("Surname"),
+                                    resultSet.getString("Img"),
+                                    resultSet.getString("Job_title")
+
+                            );
+                    data.add(tempMask);
+                    pAdapter.notifyDataSetInvalidated();
+                }
+                connection.close();
+            } else {
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        enterMobile();
+    }
 
 }
