@@ -2,6 +2,7 @@ package com.example.sotrydniki;
 
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
     List<Mask> data;
     ListView listView;
     Adapter pAdapter;
-
+    String zagolovok="";
 
 
 
@@ -138,17 +139,51 @@ public class MainActivity extends AppCompatActivity{
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id=item.getItemId();
+
+        if(id==R.id.NamePoisk)
+        {
+            zagolovok="Name";
+        }
+        else
+            if(id==R.id.SurnamePoisk)
+            {
+                zagolovok="Surname";
+            }
+            else
+                if(id==R.id.DolgnostPoisk)
+                {
+                    zagolovok="Job_title";
+                }
+        return super.onOptionsItemSelected(item);
+    }
+
     private  void txtSearch(String str)
     {
         data = new ArrayList<Mask>();
         listView = findViewById(R.id.BD);
         pAdapter = new Adapter(MainActivity.this, data);
         try {
+            String query="";
             ConnectionHelper connectionHelper = new ConnectionHelper();
             connection = connectionHelper.connectionClass();
             if (connection != null) {
-
-                String query = "Select * From Sotrudnic WHERE Name like'%"+str+"%'";
+                if(zagolovok=="Name")
+                {
+                     query = "Select * From Sotrudnic WHERE Name like'%"+str+"%'";
+                }
+                else
+                    if(zagolovok=="Surname")
+                    {
+                        query = "Select * From Sotrudnic WHERE Surname like'%"+str+"%'";
+                    }
+                    else
+                        if(zagolovok=="Job_title") {
+                            query = "Select * From Sotrudnic WHERE Job_title like'%" + str + "%'";
+                        }
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
 
