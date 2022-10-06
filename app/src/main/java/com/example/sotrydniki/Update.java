@@ -61,7 +61,7 @@ String img="";
 
 
     private Bitmap getImgBitmap(String encodedImg) {
-        if (encodedImg != null) {
+        if(encodedImg!=null&& !encodedImg.equals("null")) {
             byte[] bytes = new byte[0];
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 bytes = Base64.getDecoder().decode(encodedImg);
