@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,9 @@ public class MainActivity extends AppCompatActivity{
     List<Mask> data;
     ListView listView;
     Adapter pAdapter;
-    String zagolovok="";
+    Spinner spinnerFilter;
+    String zagolovok="Name";
+    String [] Filter={"без фильтрации","Фамилии по возрастанию","Фамилии по убыванию"};
 
 
 
@@ -56,7 +59,45 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         v = findViewById(com.google.android.material.R.id.ghost_view);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Filter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFilter=findViewById(R.id.filter);
+        spinnerFilter.setAdapter(adapter);
 
+
+        spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                String vubor=null;
+                switch (position)
+                {
+                    case 0:
+                    {
+                        vubor="Select * From Sotrudnic";
+                        SelectList(vubor);
+                    }
+                    break;
+                    case 1:
+                    {
+                        vubor="Select * From Sotrudnic ORDER BY Surname";
+                        SelectList(vubor);
+                    }
+                        break;
+                    case 2:
+                    {
+                        vubor="Select * From Sotrudnic ORDER BY Surname DESC";
+                        SelectList(vubor);
+                    }
+                    break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         GetTextFromSQL(v);
 
@@ -103,7 +144,40 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    public void SelectList(String vubor)
+    {
+        data = new ArrayList<Mask>();
+        listView = findViewById(R.id.BD);
+        pAdapter = new Adapter(MainActivity.this, data);
+        try {
+            ConnectionHelper connectionHelper = new ConnectionHelper();
+            connection = connectionHelper.connectionClass();
+            if (connection != null) {
 
+                String query = vubor;
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+
+                while (resultSet.next()) {
+                    Mask tempMask = new Mask
+                            (resultSet.getInt("ID"),
+                                    resultSet.getString("Name"),
+                                    resultSet.getString("Surname"),
+                                    resultSet.getString("Img"),
+                                    resultSet.getString("Job_title")
+
+                            );
+                    data.add(tempMask);
+                    pAdapter.notifyDataSetInvalidated();
+                }
+                connection.close();
+            } else {
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        enterMobile();
+    }
 
     public void onClickADD(View v) {
         switch (v.getId()) {
@@ -207,5 +281,6 @@ public class MainActivity extends AppCompatActivity{
         }
         enterMobile();
     }
+
 
 }

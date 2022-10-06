@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sotrydniki</string>
+    <string name="filter">Выберите фильтор по фамилии</string>
+
 </resources>
