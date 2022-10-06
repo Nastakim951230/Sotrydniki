@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
     ListView listView;
     Adapter pAdapter;
     Spinner spinnerFilter;
-    String zagolovok="Name";
+    String  zagolovok="Name";
     String [] Filter={"без фильтрации","Фамилии по возрастанию","Фамилии по убыванию"};
 
 
