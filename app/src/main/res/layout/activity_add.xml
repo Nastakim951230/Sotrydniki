@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:circularflow_radiusInDP="25"
+    android:orientation="vertical"
     tools:context=".Add">
 
     <RelativeLayout
@@ -25,12 +26,28 @@
         android:layout_below="@+id/Vverh"
         android:orientation="vertical">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ImgBut"
+            android:layout_width="match_parent"
+            android:layout_height="328dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:minWidth="250dp"
+            android:minHeight="250dp"
+            android:onClick="onClickChooseImage"
+            android:scaleType="fitXY"
+            android:src="@drawable/avatar"
+            app:shapeAppearanceOverlay="@style/Sircular"
+            tools:ignore="SpeakableTextPresentCheck" />
+
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="48dp"
 
-            android:hint="Name"
+            android:hint="Имя"
             android:minHeight="48dp"
             android:textColor="#000000"></EditText>
 
@@ -39,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
 
-            android:hint="Surname"
+            android:hint="Фамилия"
             android:minHeight="48dp"
             android:textColor="#000000"></EditText>
 
@@ -49,27 +66,9 @@
             android:layout_height="48dp"
 
 
-            android:hint="Job title"
+            android:hint="Должность"
             android:minHeight="48dp"
             android:textColor="#000000"></EditText>
-
-        <ImageView
-            android:id="@+id/ImgBut"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_marginHorizontal="75dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
-            android:background="#AFBFEA"
-            android:maxWidth="250dp"
-            android:maxHeight="250dp"
-            android:onClick="onClickChooseImage"
-            app:layout_constraintBottom_toTopOf="@+id/Niz"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_avatoradd"
-            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
@@ -118,6 +117,7 @@
             app:cornerRadius="25dp"
             app:strokeColor="#7D8BE4"
             app:strokeWidth="1dp" />
+
     </LinearLayout>
 
 
