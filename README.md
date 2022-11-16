@@ -1,6 +1,7 @@
 # Sotrydniki
 Проект для хранение данных о сотрудниках с их фотографией
 
+
 ## Начало работы
 
 Для работы с проектом необходимо скопировать данную ссылку https://github.com/Nastakim951230/Sotrydniki, после чего запустить в программе **Android Studio** 
@@ -22,9 +23,7 @@
 ![кнопки](https://sun9-west.userapi.com/sun9-11/s/v1/ig2/iTlglam0qA1GjRQvgnzilN35Io_3rI7xeulkwOoAG6xxhkA-0-4B1_ra6z7iIc-NNjGJFTnAy0pItl-x9gsbulIM.jpg?size=623x117&quality=96&type=album)
 
 4. Вставте ссылку в поле *URL*, а в поле *Directory* выберите папку в которой будет храниться проект
-
 **Папка должна быть только на английском языке**
-
 ![](https://sun9-west.userapi.com/sun9-53/s/v1/ig2/aPgujFXTEn4JEqjmv7R8EU12bqB3AcZQpoO2zUHrXiTiu8Mdrf-_TFBeHA0DOYce6M7FvLrX1fEiJ1afXhM-zn8L.jpg?size=743x138&quality=96&type=album)
 
 
@@ -76,9 +75,9 @@
 
     }
 ```
----
-## Авторы
 
-* Автор **Трифонова Анастасия** - [Ссылка на GitHub](https://github.com/Nastakim951230)
+## Авторы
+---
+* **Трифонова Анастасия** - [Ссылка на GitHub](https://github.com/Nastakim951230)
 
  [Ссылка на проект](https://github.com/Nastakim951230/Sotrydniki) 
