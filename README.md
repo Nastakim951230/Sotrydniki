@@ -79,6 +79,6 @@
 ---
 ## Авторы
 
-* **Трифонова Анастасия** - [Ссылка на GitHub](https://github.com/Nastakim951230)
+* Автор **Трифонова Анастасия** - [Ссылка на GitHub](https://github.com/Nastakim951230)
 
  [Ссылка на проект](https://github.com/Nastakim951230/Sotrydniki) 
